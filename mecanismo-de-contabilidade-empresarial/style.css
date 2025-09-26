@@ -1,0 +1,190 @@
+/* Reset Básico e Configurações Globais */
+:root {
+    --primary-color: #39ff14; /* Verde Neon */
+    --background-color: #0d0d0d;
+    --surface-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --border-color: #2a2a2a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+main {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+h1, h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* Container de Resumos (COM A ALTERAÇÃO) */
+.summary-container {
+    display: grid;
+    /* Força o grid a ter sempre 5 colunas de tamanho igual */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background-color: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.summary-card h2 {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.summary-card p {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+#monthly-profit.negative {
+    color: #ff4136; /* Vermelho para prejuízo */
+}
+
+/* Formulário */
+.form-container {
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+#transaction-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: center;
+}
+
+#transaction-form input, #transaction-form select, #transaction-form button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+#transaction-form input:focus, #transaction-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+#transaction-form button {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    grid-column: 1 / -1; /* Ocupa a linha toda no grid */
+}
+
+#transaction-form button:hover {
+    background-color: #2aff00;
+    transform: scale(1.01);
+}
+
+/* Tabela */
+.table-container {
+    background-color: var(--surface-color);
+    padding: 1rem;
+    border-radius: 8px;
+}
+.table-wrapper {
+    overflow-x: auto; /* Garante a responsividade em telas pequenas */
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+thead {
+    background-color: #222;
+    color: var(--primary-color);
+}
+
+tbody tr:hover {
+    background-color: #252525;
+}
+
+.cell-revenue {
+    color: #2ecc71; /* Verde um pouco mais suave para receitas */
+}
+
+.cell-expense {
+    color: #e74c3c; /* Vermelho para despesas */
+}
+
+.delete-btn {
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.delete-btn:hover {
+    background-color: #e74c3c;
+}
+
+/* Responsividade Geral */
+@media (max-width: 900px) { /* Ajuste para telas menores */
+    .summary-container {
+        /* Em telas menores, voltamos ao comportamento responsivo original */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+    header h1 {
+        font-size: 1.5rem;
+    }
+    #transaction-form {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+}

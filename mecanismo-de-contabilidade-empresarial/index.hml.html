@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mecanismo de Contabilidade Empresarial</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Painel de Controle Financeiro</h1>
+        <h3>Desenvolvido por Vinicius Oliveira - Estudante de Análise e Desenvolvimento de Sistemas</h3>
+    </header>
+
+    <main>
+        <section class="summary-container">
+            <div class="summary-card">
+                <h2>Faturamento Mensal</h2>
+                <p id="monthly-revenue">R$ 0,00</p>
+            </div>
+            <div class="summary-card">
+                <h2>Despesas Mensais</h2>
+                <p id="monthly-expenses">R$ 0,00</p>
+            </div>
+            <div class="summary-card">
+                <h2>Lucro/Prejuízo Mensal</h2>
+                <p id="monthly-profit">R$ 0,00</p>
+            </div>
+            <div class="summary-card">
+                <h2>Faturamento Anual Acumulado</h2>
+                <p id="annual-revenue">R$ 0,00</p>
+            </div>
+            <div class="summary-card">
+                <h2>Média Mensal de Gastos (Anual)</h2>
+                <p id="annual-avg-expenses">R$ 0,00</p>
+            </div>
+        </section>
+
+        <section class="form-container">
+            <h2>Novo Lançamento</h2>
+            <form id="transaction-form">
+                <input type="text" id="description" placeholder="Descrição (Ex: Venda do produto X)" required>
+                <input type="text" id="amount" placeholder="Valor (Ex: 1.234,56)" inputmode="decimal" required>
+                <input type="date" id="date" required>
+                <select id="type" required>
+                    <option value="revenue">Receita (Faturamento)</option>
+                    <option value="expense">Despesa</option>
+                </select>
+                <button type="submit">Adicionar Lançamento</button>
+            </form>
+        </section>
+
+        <section class="table-container">
+            <h2>Histórico de Lançamentos</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Data</th>
+                            <th>Tipo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
