@@ -1,21 +1,16 @@
-// Aguarda o DOM ser completamente carregado para executar o script
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Seleciona os elementos do DOM
     const form = document.getElementById('transaction-form');
     const tableBody = document.getElementById('transaction-table-body');
     
-    // Seleciona os elementos do painel de resumo
     const monthlyRevenueEl = document.getElementById('monthly-revenue');
     const monthlyExpensesEl = document.getElementById('monthly-expenses');
     const monthlyProfitEl = document.getElementById('monthly-profit');
     const annualRevenueEl = document.getElementById('annual-revenue');
-    const annualAvgExpensesEl = document.getElementById('annual-avg-expenses'); // NOVO ELEMENTO
+    const annualAvgExpensesEl = document.getElementById('annual-avg-expenses'); 
 
-    // Carrega as transações do localStorage ou inicializa um array vazio
     let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
-    // Função para formatar números como moeda brasileira (BRL)
     const formatCurrency = (amount) => {
         return new Intl.NumberFormat('pt-BR', {
             style: 'currency',
@@ -23,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }).format(amount);
     };
 
-    // Função para converter o formato de moeda brasileiro para um número float
     const parseCurrency = (valueString) => {
         if (!valueString) return 0;
         const stringWithoutDots = valueString.replace(/\./g, '');
@@ -31,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return parseFloat(stringWithDot);
     };
 
-    // Função para renderizar (desenhar) uma única transação na tabela
     const renderTransaction = (transaction) => {
         const tr = document.createElement('tr');
         const amountClass = transaction.type === 'revenue' ? 'cell-revenue' : 'cell-expense';
@@ -45,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.appendChild(tr);
     };
 
-    // Função para atualizar todos os cálculos e exibir no painel de resumo
     const updateSummary = () => {
         const now = new Date();
         const currentMonth = now.getMonth();
@@ -61,29 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return transactionDate.getFullYear() === currentYear;
         });
 
-        // Cálculos Mensais (como já estavam)
         const monthlyRevenue = monthlyTransactions.filter(t => t.type === 'revenue').reduce((sum, t) => sum + t.amount, 0);
         const monthlyExpenses = monthlyTransactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
         const monthlyProfit = monthlyRevenue - monthlyExpenses;
 
-        // Cálculos Anuais
         const annualRevenue = annualTransactions.filter(t => t.type === 'revenue').reduce((sum, t) => sum + t.amount, 0);
         
-        // --- LÓGICA NOVA PARA A MÉDIA DE GASTOS ---
         const annualExpensesTransactions = annualTransactions.filter(t => t.type === 'expense');
         const annualTotalExpenses = annualExpensesTransactions.reduce((sum, t) => sum + t.amount, 0);
         
-        // Para calcular a média corretamente, contamos quantos meses únicos tiveram gastos
         const monthsWithExpenses = new Set(
             annualExpensesTransactions.map(t => new Date(t.date).getMonth())
         );
         const numberOfMonthsWithExpenses = monthsWithExpenses.size;
 
-        // Evita divisão por zero se não houver despesas
         const annualAvgExpenses = numberOfMonthsWithExpenses > 0 ? annualTotalExpenses / numberOfMonthsWithExpenses : 0;
-        // --- FIM DA LÓGICA NOVA ---
 
-        // Atualiza os elementos no HTML
         monthlyRevenueEl.textContent = formatCurrency(monthlyRevenue);
         monthlyExpensesEl.textContent = formatCurrency(monthlyExpenses);
         annualRevenueEl.textContent = formatCurrency(annualRevenue);
@@ -96,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
-    // O resto do código permanece o mesmo...
     const saveTransactions = () => {
         localStorage.setItem('transactions', JSON.stringify(transactions));
     };
@@ -144,4 +128,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     init();
+
 });
